@@ -42,13 +42,16 @@ const Dashboard = {
         containerEl.innerHTML = "";
 
         // Populate notes list with note item template & add user info
-        notes.data.forEach((note) => {
-            containerEl.innerHTML += `
+        // Sort condition createdAt newest
+        notes.data
+            .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+            .forEach((note) => {
+                containerEl.innerHTML += `
         <div class="col-12">
           ${noteItemTemplate(note, userInfo)}
         </div>
       `;
-        });
+            });
 
         // Add event listener to delete button for each note item
         containerEl.querySelectorAll(`#deleteNoteButton`).forEach((el) => {
