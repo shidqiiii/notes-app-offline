@@ -1,4 +1,4 @@
-import { convertToFormattedDate } from '../../utils/utils';
+import { convertToFormattedDate } from "../../utils/utils";
 
 const unauthenticatedNavListTemplate = (userInfo) => `
   <ul class="nav justify-content-center align-items-center">
@@ -45,26 +45,34 @@ const authenticatedNavListTemplate = (userInfo) => `
   </ul>
 `;
 
-const noteItemTemplate = (note) => `
-  <div class="card h-100">
-    <div class="card-body">
-      <h5 class="card-title">${note.title}</h5>
-      <span class="text-muted">${note.owner}</span> | 
-      <span class="text-muted">${convertToFormattedDate(note.createdAt)}</span>
-      <p class="card-text">${note.body}</p>
-      <div class="mt-3 d-flex gap-2 justify-content-end align-items-end">
-        <button 
-          id="deleteNoteButton" 
-          data-id="${note.id}" 
-          class="btn btn-danger"
-        >Hapus</button>
+// Hide button if owner !== user
+const noteItemTemplate = (note, userInfo) => {
+    const buttonHide =
+        userInfo.name === note.owner
+            ? `<div class="mt-3 d-flex gap-2 justify-content-end align-items-end">
+                <button 
+                  id="deleteNoteButton" 
+                  data-id="${note.id}"                   
+                  class="btn btn-danger"
+                  >Hapus</button>
+              </div>`
+            : ``;
+
+    return `
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">${note.title}</h5>
+        <span class="text-muted">${note.owner}</span> | 
+        <span class="text-muted">${convertToFormattedDate(note.createdAt)}</span>
+        <p class="card-text">${note.body}</p>
+        ${buttonHide}
       </div>
     </div>
-  </div>
-`;
+  `;
+};
 
 const createNoteListEmptyTemplate = () => {
-  return `
+    return `
     <div class="col-12">
       <div class="text-center p-5">
         Tidak ada catatan tersedia.
@@ -73,9 +81,4 @@ const createNoteListEmptyTemplate = () => {
   `;
 };
 
-export {
-  authenticatedNavListTemplate,
-  unauthenticatedNavListTemplate,
-  noteItemTemplate,
-  createNoteListEmptyTemplate,
-};
+export { authenticatedNavListTemplate, unauthenticatedNavListTemplate, noteItemTemplate, createNoteListEmptyTemplate };
