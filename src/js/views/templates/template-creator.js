@@ -1,7 +1,8 @@
 import { convertToFormattedDate } from "../../utils/utils";
 
+// Change bootstrap
 const unauthenticatedNavListTemplate = (userInfo) => `
-  <ul class="nav justify-content-center align-items-center">
+  <ul class="navbar-nav justify-content-center align-items-center">
     <li id="loginMenu" class="nav-item">
       <a class="nav-link" href="#/login">Login</a>
     </li>
@@ -11,8 +12,9 @@ const unauthenticatedNavListTemplate = (userInfo) => `
   </ul>
 `;
 
+// Change bootstrap
 const authenticatedNavListTemplate = (userInfo) => `
-  <ul class="nav justify-content-center align-items-center">
+  <ul class="navbar-nav justify-content-center align-items-center">
     <li class="nav-item">
       <a class="nav-link" href="#/">Beranda</a>
     </li>
