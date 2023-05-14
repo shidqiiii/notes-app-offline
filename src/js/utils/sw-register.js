@@ -1,3 +1,4 @@
+import { Workbox } from "workbox-window";
 import PushNotificationHelper from "./push-notification-helper";
 
 const swRegister = async () => {
@@ -7,7 +8,8 @@ const swRegister = async () => {
     }
 
     try {
-        await navigator.serviceWorker.register("sw.bundle.js");
+        const wb = new Workbox("/sw.bundle.js");
+        const registration = await wb.register();
 
         // Initialize web push notification after service worker activated successfully
         await PushNotificationHelper.init({
@@ -17,8 +19,7 @@ const swRegister = async () => {
 
         console.log("Service worker registered");
     } catch (error) {
-        console.log("Failed to register service worker");
-        console.error(error);
+        console.error("Failed to register service worker", error);
     }
 };
 
